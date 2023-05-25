@@ -55,6 +55,7 @@ class MainActivity : ComponentActivity() {
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.fillMaxWidth().padding(16.dp, 0.dp, 16.dp, 16.dp),
                     onClick = {
+                        startActivity(Intent(applicationContext, SearchActivity::class.java))
                     }
                 ) {
                     Text("원하시는 검색어를 입력해주세요")
