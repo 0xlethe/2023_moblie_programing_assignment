@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -86,19 +87,31 @@ class SearchActivity : ComponentActivity() {
 
     @Composable
     fun SearchListView(textState: String) {
-        if (textState?.isNotEmpty()) (
-            CertificateManager.data.filter {
+        val filter = CertificateManager.data.filter {
+            if (textState?.isNotEmpty()) {
                 it.name?.contains(textState) || it.organization?.contains(textState)
-            }.map {
-                CertificateSimpleCard(it) {
-                    startActivity(
-                        Intent(applicationContext, InfoActivity::class.java).putExtra("Certificate", it)
-                    )
-                }
+            } else {
+                false
             }
-        ) else Box(modifier = Modifier.padding(24.dp), contentAlignment = Alignment.Center) {
-            Text("검색어를 입력해 주세요")
         }
+        if (textState?.isNotEmpty()) (
+            if (filter.isNotEmpty()) (
+                filter.map {
+                    CertificateSimpleCard(it) {
+                        startActivity(
+                            Intent(
+                                applicationContext,
+                                InfoActivity::class.java
+                            ).putExtra("Certificate", it)
+                        )
+                    }
+                }
+            ) else (
+                Text("검색 결과가 존재하지 않습니다", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+            )
+        ) else (
+            Text("검색어를 입력해 주세요", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth())
+        )
     }
 
     @Preview(showBackground = true)
