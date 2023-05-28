@@ -1,6 +1,7 @@
 package com.moblie.programming.assignment.views
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.ComponentActivity
@@ -17,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,11 +63,17 @@ class InfoActivity : ComponentActivity() {
     @Composable
     fun InfoBox(title: String, text: String) {
         Surface(
-            color = Color.DarkGray,
+            color = Color.LightGray,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            shape = RoundedCornerShape(16.dp)
+            shape = RoundedCornerShape(16.dp),
+            onClick = {
+                if (text.startsWith("http://") || text.startsWith("https://")) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(text))
+                    startActivity(intent)
+                }
+            }
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(text = title, fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
@@ -77,7 +85,7 @@ class InfoActivity : ComponentActivity() {
     @Composable
     fun MoreInfoBox(text: String) {
         Surface(
-            color = Color.DarkGray,
+            color = Color.LightGray,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -93,7 +101,7 @@ class InfoActivity : ComponentActivity() {
     @Composable
     fun InfoImage() {
         Surface(
-            color = Color.DarkGray,
+            color = Color.LightGray,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -106,8 +114,8 @@ class InfoActivity : ComponentActivity() {
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(8.dp))
                         .height(200.dp),
+                    contentScale = ContentScale.FillBounds
                 )
                 Text(text = "Url: ${certificate.imageLink}", modifier = Modifier.padding(top = 8.dp))
             }
@@ -144,8 +152,10 @@ class InfoActivity : ComponentActivity() {
             ) {
                 InfoImage()
                 InfoBox("organization", certificate.organization)
-                InfoBox( "Price","₩ ${certificate.examAmount}")
-                InfoBox( "Website","${certificate.link}")
+                certificate.amount.map {
+                    InfoBox(it.first,"₩ ${it.second}")
+                }
+                InfoBox( "Website",certificate.link)
                 MoreInfoBox(certificate.infomation)
             }
             bottomButton()

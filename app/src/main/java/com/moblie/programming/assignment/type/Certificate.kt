@@ -6,10 +6,26 @@ data class Certificate(
     val name: String,
     var organization: String,
     var imageLink: String,
-    var examAmount: Int,
+    var amount: Array<Pair<String, Int>>,
     var link: String,
     var infomation: String
 ): Serializable {
-    constructor() : this(-1, "dummy name:", "dummy organization", "", 100000, "", "dummy Infomation")
-    constructor(name: String, organization: String) : this(-1, name, organization, "", 100000, "", "dummy Infomation")
+    constructor() : this(
+        -1,
+        Common.DUMMY_CERTIFICATE.NAME,
+        Common.DUMMY_CERTIFICATE.ORGANIZATION,
+        Common.DUMMY_CERTIFICATE.IMAGE,
+        Common.DUMMY_CERTIFICATE.AMOUNT,
+        Common.DUMMY_CERTIFICATE.LINK,
+        Common.DUMMY_CERTIFICATE.INFORMATION
+    )
+    constructor(name: String, organization: String) : this(
+        -1,
+        name,
+        organization,
+        Common.DUMMY_CERTIFICATE.IMAGE,
+        Common.DUMMY_CERTIFICATE.AMOUNT,
+        Common.DUMMY_CERTIFICATE.LINK,
+        Common.DUMMY_CERTIFICATE.INFORMATION
+    )
 }
