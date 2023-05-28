@@ -2,12 +2,9 @@ package com.moblie.programming.assignment.views
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -20,10 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +25,6 @@ import com.moblie.programming.assignment.manager.CertificateManager
 import com.moblie.programming.assignment.ui.component.CertificateSimpleCard
 import com.moblie.programming.assignment.ui.component.Header
 import com.moblie.programming.assignment.ui.theme.AssignmentTheme
-import java.util.*
 
 class SearchActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,6 +84,23 @@ class SearchActivity : ComponentActivity() {
         }
     }
 
+    @Composable
+    fun SearchListView(textState: String) {
+        if (textState?.isNotEmpty()) (
+            CertificateManager.data.filter {
+                it.name?.contains(textState) || it.organization?.contains(textState)
+            }.map {
+                CertificateSimpleCard(it) {
+                    startActivity(
+                        Intent(applicationContext, InfoActivity::class.java).putExtra("Certificate", it)
+                    )
+                }
+            }
+        ) else Box(modifier = Modifier.padding(24.dp), contentAlignment = Alignment.Center) {
+            Text("검색어를 입력해 주세요")
+        }
+    }
+
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
@@ -116,22 +126,7 @@ class SearchActivity : ComponentActivity() {
                         .padding(top = 24.dp)
                         .weight(1f)
                 ) {
-                    CertificateManager.data.filter {
-                        if (textState?.isNotEmpty()) {
-                            it.name?.contains(textState) || it.organization?.contains(textState)
-                        } else {
-                            true
-                        }
-                    }.map {
-                        CertificateSimpleCard(it) {
-                            startActivity(
-                                Intent(
-                                    applicationContext,
-                                    InfoActivity::class.java
-                                ).putExtra("Certificate", it)
-                            )
-                        }
-                    }
+                    SearchListView(textState)
                 }
             }
         }

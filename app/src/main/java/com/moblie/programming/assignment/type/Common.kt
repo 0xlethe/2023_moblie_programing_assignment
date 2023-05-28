@@ -4,8 +4,6 @@ class Common {
     companion object {
         const val API_HOST = "https://raw.githubusercontent.com/0xlethe/2023_moblie_programming_assignment/main"
         const val API_LIST = "${API_HOST}/docs/certification.json"
-        const val DUMMY_IMAGE = "http://placeimg.com/640/480/tech"
-
     }
 
     object DUMMY_CERTIFICATE {
