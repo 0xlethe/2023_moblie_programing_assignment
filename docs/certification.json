@@ -1,0 +1,92 @@
+{
+    "result": "success",
+    "data": {
+        "length": 7, 
+        "certification": [
+            {
+                "id": 1,
+                "name": "정보처리기능사",
+                "organization": "과학기술정보통신부",
+                "imageLink": "",
+                "amount": [
+                    { "필기": 14500 },
+                    { "실기": 17200 }
+                ],
+                "link": "https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=",
+                "information": "합격기준\n- 필기 : 100점을 만점으로 하여 60점 이상\n - 실기 : 100점을 만점으로 하여 60점 이상"
+            },
+            {
+                "id": 2,
+                "name": "정보처리기사",
+                "organization": "과학기술정보통신부",
+                "imageLink": "",
+                "amount": [
+                    { "필기": 19400 },
+                    { "실기": 22600 }
+                ],
+                "link": "https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=",
+                "information": "힙격기준\n- 필기 : 100점을 만점으로 하여 과목당 40점 이상, 전과목 평균 60점 이상.\n- 실기 : 100점을 만점으로 하여 60점 이상."
+            },
+            {
+                "id": 3,
+                "name": "정보처리산업기사",
+                "organization": "과학기술정보통신부",
+                "imageLink": "",
+                "amount": [
+                    { "필기": 19400 },
+                    { "실기": 20800 }
+                ],
+                "link": "https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=",
+                "information": "힙격기준\n- 필기 : 100점을 만점으로 하여 과목당 40점 이상, 전과목 평균 60점 이상.\n- 실기 : 100점을 만점으로 하여 60점 이상."
+            },
+            {
+                "id": 4,
+                "name": "정보기기운용기능사",
+                "organization": "과학기술정보통신부",
+                "imageLink": "",
+                "amount": [
+                    { "필기": 14500 },
+                    { "실기": 21800 }
+                ],
+                "link": "https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=",
+                "information": "합격기준\n- 필기 : 100점을 만점으로 하여 60점 이상\n - 실기 : 100점을 만점으로 하여 60점 이상"
+            },
+            {
+                "id": 5,
+                "name": "컴퓨터시스템응용기술사",
+                "organization": "과학기술정보통신부",
+                "imageLink": "",
+                "amount": [
+                    { "필기": 67800 },
+                    { "실기": 87100 }
+                ],
+                "link": "https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=",
+                "information": "합격기준\n- 필기 ·면접 : 100점을 만점으로 하여 60점 이상"
+            },
+            {
+                "id": 6,
+                "name": "정보관리기술사",
+                "organization": "과학기술정보통신부",
+                "imageLink": "",
+                "amount": [
+                    { "필기": 67800 },
+                    { "실기": 87100 }
+                ],
+                "link": "https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=",
+                "information": "합격기준\n- 필기 ·면접 : 100점을 만점으로 하여 60점 이상"
+            },
+            {
+                "id": 7,
+                "name": "사무자동화산업기사",
+                "organization": "과학기술정보통신부, 산업통상자원부",
+                "imageLink": "",
+                "amount": [
+                    { "필기": 19400 },
+                    { "실기": 31000 }
+                ],
+                "link": "https://www.q-net.or.kr/crf005.do?id=crf00505&gSite=Q&gId=",
+                "information": "힙격기준\n- 필기 : 100점을 만점으로 하여 과목당 40점 이상, 전과목 평균 60점 이상.\n- 실기 : 100점을 만점으로 하여 60점 이상."
+            }
+        ]
+    }
+}
