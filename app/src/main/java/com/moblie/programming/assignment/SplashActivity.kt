@@ -23,40 +23,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.moblie.programming.assignment.manager.api.ApiClient
 import com.moblie.programming.assignment.manager.CertificateManager
 import com.moblie.programming.assignment.type.Certificate
+import com.moblie.programming.assignment.type.Common.Companion.API_LIST
 import com.moblie.programming.assignment.ui.component.Header
 import com.moblie.programming.assignment.ui.theme.AssignmentTheme
 import com.moblie.programming.assignment.views.MainActivity
 import kotlinx.coroutines.NonCancellable.cancel
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.concurrent.timer
 
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var progress = 0.1f
-        CertificateManager.data = arrayOf(
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-//            Certificate("TEST", "ASDF"),
-            Certificate("TEST2", "ASDF2"))
+
+        ApiClient.getList()
 
         setContent {
             AssignmentTheme {
@@ -64,8 +48,7 @@ class SplashActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
-
-                    ) {
+                ) {
                     DefaultPreview()
                 }
             }
@@ -80,7 +63,6 @@ class SplashActivity : ComponentActivity() {
             finish()
         }
     }
-
 
     @Preview(showBackground = true)
     @Composable

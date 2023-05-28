@@ -6,9 +6,7 @@ class CertificateManager {
     companion object {
         var data: List<Certificate> = listOf()
 
-        fun setData() {
 
-        }
 
     }
 }

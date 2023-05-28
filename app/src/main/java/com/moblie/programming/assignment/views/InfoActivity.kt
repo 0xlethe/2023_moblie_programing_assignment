@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.moblie.programming.assignment.type.Certificate
+import com.moblie.programming.assignment.type.Common
 import com.moblie.programming.assignment.ui.component.Header
 import com.moblie.programming.assignment.ui.theme.AssignmentTheme
 
@@ -95,6 +96,7 @@ class InfoActivity : ComponentActivity() {
 
     @Composable
     fun InfoImage() {
+        val imageUrl = if (certificate.imageLink?.isBlank()) Common.DUMMY_CERTIFICATE.IMAGE else certificate.imageLink
         Surface(
             color = Color.LightGray,
             modifier = Modifier
@@ -105,7 +107,7 @@ class InfoActivity : ComponentActivity() {
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Image(
-                    painter = rememberAsyncImagePainter(certificate.imageLink),
+                    painter = rememberAsyncImagePainter(imageUrl),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -113,7 +115,6 @@ class InfoActivity : ComponentActivity() {
                         .height(200.dp),
                     contentScale = ContentScale.FillBounds
                 )
-                Text(text = "Url: ${certificate.imageLink}", modifier = Modifier.padding(top = 8.dp))
             }
         }
     }
@@ -152,7 +153,7 @@ class InfoActivity : ComponentActivity() {
                     InfoBox(it.key,"₩ ${it.amount}")
                 }
                 InfoBox( "Website",certificate.link)
-                MoreInfoBox(certificate.infomation)
+                MoreInfoBox(certificate.information)
             }
             bottomButton()
         }

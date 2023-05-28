@@ -10,7 +10,7 @@ data class Certificate(
     var imageLink: String,
     var amount: List<CertificateAmount>,
     var link: String,
-    var infomation: String
+    var information: String
 ): Serializable {
     constructor() : this(
         -1,
