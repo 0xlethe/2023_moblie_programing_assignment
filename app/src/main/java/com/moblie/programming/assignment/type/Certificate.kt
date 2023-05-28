@@ -1,12 +1,14 @@
 package com.moblie.programming.assignment.type
 import java.io.Serializable
 
+data class CertificateAmount(val key: String, val amount: Int): Serializable {}
+
 data class Certificate(
     val id: Int,
     val name: String,
     var organization: String,
     var imageLink: String,
-    var amount: Array<Pair<String, Int>>,
+    var amount: List<CertificateAmount>,
     var link: String,
     var infomation: String
 ): Serializable {

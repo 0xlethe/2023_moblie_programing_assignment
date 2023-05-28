@@ -149,7 +149,7 @@ class InfoActivity : ComponentActivity() {
                 InfoImage()
                 InfoBox("organization", certificate.organization)
                 certificate.amount.map {
-                    InfoBox(it.first,"₩ ${it.second}")
+                    InfoBox(it.key,"₩ ${it.amount}")
                 }
                 InfoBox( "Website",certificate.link)
                 MoreInfoBox(certificate.infomation)

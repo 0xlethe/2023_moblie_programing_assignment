@@ -4,7 +4,7 @@ import com.moblie.programming.assignment.type.Certificate
 
 class CertificateManager {
     companion object {
-        var data: Array<Certificate> = arrayOf()
+        var data: List<Certificate> = listOf()
 
         fun setData() {
 
