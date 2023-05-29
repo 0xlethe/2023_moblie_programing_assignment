@@ -17,5 +17,11 @@ class CertificateManager {
             return result
         }
 
+        fun updateAllFav(isFav: Boolean) {
+            data.map {
+                it.isFav = isFav
+            }
+        }
+
     }
 }

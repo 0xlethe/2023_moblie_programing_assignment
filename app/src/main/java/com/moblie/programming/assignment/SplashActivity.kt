@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moblie.programming.assignment.manager.api.ApiClient
 import com.moblie.programming.assignment.manager.CertificateManager
+import com.moblie.programming.assignment.manager.DBHelper
 import com.moblie.programming.assignment.type.Certificate
 import com.moblie.programming.assignment.type.Common.Companion.API_LIST
 import com.moblie.programming.assignment.ui.component.Header
@@ -43,8 +44,17 @@ class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ApiClient.getList()
+        val db = DBHelper(this)
         timer(initialDelay = 1000, period = 1000) {
             if (CertificateManager.data?.isNotEmpty()) {
+                db.getList().map {
+                    CertificateManager.data.forEach { it2 ->
+                        if (it == it2.id) {
+                            it2.isFav = true
+                        }
+                    }
+                }
+
                 cancel()
                 startActivity(
                     Intent(applicationContext, MainActivity::class.java)

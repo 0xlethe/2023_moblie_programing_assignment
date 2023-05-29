@@ -28,11 +28,14 @@ import com.moblie.programming.assignment.type.Common
 import com.moblie.programming.assignment.ui.component.Header
 import com.moblie.programming.assignment.ui.theme.AssignmentTheme
 import androidx.compose.runtime.livedata.observeAsState
+import com.moblie.programming.assignment.manager.DBHelper
 
 class InfoActivity : ComponentActivity() {
     lateinit var certificate: Certificate
+    lateinit var db: DBHelper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = DBHelper(this)
         certificate = (intent.extras?.get("Certificate") ?: Certificate()) as Certificate
         setContent {
             AssignmentTheme {
@@ -130,6 +133,8 @@ class InfoActivity : ComponentActivity() {
     }
 
     fun getBookMarkString(isFav: Boolean): String {
+        if (isFav) db.addFav(certificate)
+        else db.deleteFav(certificate)
         return if (isFav) "★" else "☆"
     }
 

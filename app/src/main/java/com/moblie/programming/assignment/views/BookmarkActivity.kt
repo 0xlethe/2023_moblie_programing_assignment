@@ -8,21 +8,29 @@ import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.moblie.programming.assignment.manager.CertificateManager
+import com.moblie.programming.assignment.manager.DBHelper
+import com.moblie.programming.assignment.type.Certificate
 import com.moblie.programming.assignment.ui.component.CertificateSimpleCard
 import com.moblie.programming.assignment.ui.component.Header
 import com.moblie.programming.assignment.ui.theme.AssignmentTheme
 
 class BookmarkActivity : ComponentActivity() {
+    lateinit var db: DBHelper
+    var list = listOf<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = DBHelper(this)
+        list = db.getList()
         setContent {
             AssignmentTheme {
                 Surface(
@@ -48,6 +56,30 @@ class BookmarkActivity : ComponentActivity() {
         }
     }
 
+    @Composable
+    fun bottomButton() {
+        Surface(
+            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+            color = Color.DarkGray,
+        ) {
+            Row(
+                modifier = Modifier.padding(vertical = 16.dp, horizontal = 16.dp),
+            ) {
+                Button(
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = {
+                        db.deleteAllFav()
+                        list = listOf()
+                    }
+                ) {
+                    Text("Delete All")
+                }
+            }
+        }
+    }
+
+
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
@@ -59,8 +91,10 @@ class BookmarkActivity : ComponentActivity() {
                     .padding(top = 24.dp)
                     .weight(1f)
             ) {
-                CertificateManager.data.map {
-                    CertificateSimpleCard(it) {
+               list.map {
+                   CertificateManager.data.find { cer -> it == cer.id }
+               }.filter { it != null }.map {
+                    CertificateSimpleCard(it!!) {
                         startActivity(
                             Intent(
                                 applicationContext,
@@ -70,6 +104,7 @@ class BookmarkActivity : ComponentActivity() {
                     }
                 }
             }
+//            bottomButton()
         }
     }
 }
