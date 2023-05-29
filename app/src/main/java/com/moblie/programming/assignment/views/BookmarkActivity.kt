@@ -26,11 +26,9 @@ import com.moblie.programming.assignment.ui.theme.AssignmentTheme
 
 class BookmarkActivity : ComponentActivity() {
     lateinit var db: DBHelper
-    var list = listOf<Int>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         db = DBHelper(this)
-        list = db.getList()
         setContent {
             AssignmentTheme {
                 Surface(
@@ -57,7 +55,7 @@ class BookmarkActivity : ComponentActivity() {
     }
 
     @Composable
-    fun bottomButton() {
+    fun bottomButton(onClick: () -> Unit) {
         Surface(
             shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
             color = Color.DarkGray,
@@ -68,10 +66,7 @@ class BookmarkActivity : ComponentActivity() {
                 Button(
                     shape = RoundedCornerShape(8.dp),
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        db.deleteAllFav()
-                        list = listOf()
-                    }
+                    onClick = onClick
                 ) {
                     Text("Delete All")
                 }
@@ -83,6 +78,7 @@ class BookmarkActivity : ComponentActivity() {
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
+        var (list, setList) = remember { mutableStateOf(db.getList()) }
         Column() {
             BookmarkHeader()
             Column(
@@ -104,7 +100,10 @@ class BookmarkActivity : ComponentActivity() {
                     }
                 }
             }
-//            bottomButton()
+            bottomButton {
+                db.deleteAllFav()
+                setList(listOf<Int>())
+            }
         }
     }
 }
