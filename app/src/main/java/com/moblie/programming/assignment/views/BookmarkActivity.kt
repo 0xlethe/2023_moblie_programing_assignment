@@ -2,6 +2,7 @@ package com.moblie.programming.assignment.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ScrollState
@@ -101,6 +102,7 @@ class BookmarkActivity : ComponentActivity() {
             bottomButton {
                 db.deleteAllFav()
                 setList(listOf<Int>())
+                Toast.makeText(applicationContext, "모든 북마크를 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
@@ -138,8 +139,14 @@ class InfoActivity : ComponentActivity() {
             isFav = !isFav
             CertificateManager.updateFav(certificate, isFav)
         }
-        if (isFav) db.addFav(certificate)
-        else db.deleteFav(certificate)
+        if (isFav) {
+            db.addFav(certificate)
+            Toast.makeText(applicationContext, "북마크 추가 완료", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            db.deleteFav(certificate)
+            Toast.makeText(applicationContext, "북마크 삭제 완료", Toast.LENGTH_SHORT).show()
+        }
         return if (isFav) "★" else "☆"
     }
 

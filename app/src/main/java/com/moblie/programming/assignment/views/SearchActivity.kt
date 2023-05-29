@@ -2,6 +2,7 @@ package com.moblie.programming.assignment.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.ScrollState
@@ -129,7 +130,10 @@ class SearchActivity : ComponentActivity() {
                         Row() {
                             Header("Search", color = Color.White, onClick = { finish() })
                         }
-                        SearchBar(textState, { text -> textState = text }, { textState = String() })
+                        SearchBar(textState, { text -> textState = text }, {
+                            textState = String()
+                            Toast.makeText(applicationContext, "검색어 삭제", Toast.LENGTH_SHORT).show()
+                        })
                     }
                 }
 

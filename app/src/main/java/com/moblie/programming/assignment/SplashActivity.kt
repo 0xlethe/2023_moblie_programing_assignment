@@ -3,6 +3,7 @@ package com.moblie.programming.assignment
 import android.content.Intent
 import android.content.Intent.*
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.animateFloatAsState
@@ -57,6 +58,7 @@ class SplashActivity : ComponentActivity() {
                 }
 
                 cancel()
+                Toast.makeText(applicationContext, "데이터 업데이트 완료", Toast.LENGTH_SHORT).show()
                 startActivity(
                     Intent(applicationContext, MainActivity::class.java)
                         .setFlags(FLAG_ACTIVITY_CLEAR_TOP)
@@ -81,7 +83,10 @@ class SplashActivity : ComponentActivity() {
     @Composable
     fun DefaultPreview() {
         AssignmentTheme {
-            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
                 CircularProgressIndicator()
             }
         }
