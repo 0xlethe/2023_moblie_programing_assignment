@@ -43,10 +43,11 @@ import kotlin.concurrent.timer
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ApiClient.getList()
         val db = DBHelper(this)
+        ApiClient.getList()
+
         timer(initialDelay = 1000, period = 1000) {
-            if (CertificateManager.data?.isNotEmpty()) {
+            if (CertificateManager.data.isNotEmpty()) {
                 db.getList().map {
                     CertificateManager.data.forEach { it2 ->
                         if (it == it2.id) {

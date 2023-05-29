@@ -89,7 +89,7 @@ class InfoActivity : ComponentActivity() {
 
     @Composable
     fun InfoImage() {
-        val imageUrl = if (certificate.imageLink?.isBlank()) Common.DUMMY_CERTIFICATE.IMAGE else certificate.imageLink
+        val imageUrl = certificate.imageLink.ifBlank { Common.DUMMY_CERTIFICATE.IMAGE }
         Surface(
             color = Color.LightGray,
             modifier = Modifier
@@ -132,7 +132,12 @@ class InfoActivity : ComponentActivity() {
         }
     }
 
-    fun getBookMarkString(isFav: Boolean): String {
+    private fun getBookMarkString(isInit: Boolean = false): String {
+        var isFav = certificate.isFav
+        if (!isInit) {
+            isFav = !isFav
+            CertificateManager.updateFav(certificate, isFav)
+        }
         if (isFav) db.addFav(certificate)
         else db.deleteFav(certificate)
         return if (isFav) "★" else "☆"
@@ -141,7 +146,7 @@ class InfoActivity : ComponentActivity() {
     @Preview(showBackground = true, widthDp = 320, heightDp = 480)
     @Composable
     fun DefaultPreview() {
-        var (isFav, setFav) = remember { mutableStateOf(getBookMarkString(certificate.isFav)) }
+        var (isFav, setFav) = remember { mutableStateOf(getBookMarkString(true)) }
         Column() {
             Surface(
                 color = Color.DarkGray,
@@ -149,7 +154,7 @@ class InfoActivity : ComponentActivity() {
                 shape = RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp)
             ) {
                 Column() {
-                    Header(certificate.name, color = Color.White, { setFav(getBookMarkString(CertificateManager.updateFav(certificate))) }, isFav)
+                    Header(certificate.name, color = Color.White, { setFav(getBookMarkString()) }, isFav)
                 }
             }
             Column(

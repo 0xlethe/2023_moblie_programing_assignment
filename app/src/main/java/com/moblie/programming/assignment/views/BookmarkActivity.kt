@@ -19,7 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.moblie.programming.assignment.manager.CertificateManager
 import com.moblie.programming.assignment.manager.DBHelper
-import com.moblie.programming.assignment.type.Certificate
 import com.moblie.programming.assignment.ui.component.CertificateSimpleCard
 import com.moblie.programming.assignment.ui.component.Header
 import com.moblie.programming.assignment.ui.theme.AssignmentTheme
@@ -74,7 +73,6 @@ class BookmarkActivity : ComponentActivity() {
         }
     }
 
-
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
@@ -87,10 +85,10 @@ class BookmarkActivity : ComponentActivity() {
                     .padding(top = 24.dp)
                     .weight(1f)
             ) {
-               list.map {
-                   CertificateManager.data.find { cer -> it == cer.id }
-               }.filter { it != null }.map {
-                    CertificateSimpleCard(it!!) {
+                list.mapNotNull {
+                    CertificateManager.data.find { cer -> it == cer.id }
+                }.map {
+                    CertificateSimpleCard(it) {
                         startActivity(
                             Intent(
                                 applicationContext,
