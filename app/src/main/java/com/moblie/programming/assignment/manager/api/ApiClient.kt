@@ -20,7 +20,7 @@ class ApiClient {
                     call: Call<ApiResult>,
                     response: Response<ApiResult>
                 ) {
-                    CertificateManager.data = response.body()?.data?.certification!!.sortedBy { it.id }
+                    CertificateManager.data = (response.body()?.data?.certification?: listOf()).sortedBy { it.id }
                 }
 
                 override fun onFailure(call: Call<ApiResult>, t: Throwable) {
