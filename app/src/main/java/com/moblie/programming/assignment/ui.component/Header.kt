@@ -1,5 +1,6 @@
 package com.moblie.programming.assignment.ui.component
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -24,7 +25,7 @@ fun Header(title: String, color: Color = Color.Black) {
     }
 }
 @Composable
-fun Header(title: String, color: Color = Color.Black, onClick: () -> Unit) {
+fun Header(title: String, color: Color = Color.Black, onClick: () -> Unit, text: String = "X") {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,7 +38,7 @@ fun Header(title: String, color: Color = Color.Black, onClick: () -> Unit) {
             onClick = onClick,
             colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray),
         ) {
-            Text(text = "X", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 24.sp, textAlign = TextAlign.Center)
+            Text(text = text, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 24.sp, textAlign = TextAlign.Center)
         }
     }
 }

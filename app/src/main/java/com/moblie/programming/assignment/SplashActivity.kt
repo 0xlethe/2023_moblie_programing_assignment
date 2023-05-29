@@ -5,9 +5,13 @@ import android.content.Intent.*
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.LinearProgressIndicator
+import androidx.compose.material.ProgressIndicatorDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -38,10 +42,17 @@ import kotlin.concurrent.timer
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var progress = 0.1f
-
         ApiClient.getList()
-
+        timer(initialDelay = 1000, period = 1000) {
+            if (CertificateManager.data?.isNotEmpty()) {
+                cancel()
+                startActivity(
+                    Intent(applicationContext, MainActivity::class.java)
+                        .setFlags(FLAG_ACTIVITY_CLEAR_TOP)
+                )
+                finish()
+            }
+        }
         setContent {
             AssignmentTheme {
                 // A surface container using the 'background' color from the theme
@@ -53,23 +64,14 @@ class SplashActivity : ComponentActivity() {
                 }
             }
         }
-
-        timer(initialDelay = 1000, period = 1000) {
-            cancel()
-            startActivity(
-                Intent(applicationContext, MainActivity::class.java)
-                .setFlags(FLAG_ACTIVITY_CLEAR_TOP)
-            )
-            finish()
-        }
     }
 
     @Preview(showBackground = true)
     @Composable
     fun DefaultPreview() {
         AssignmentTheme {
-            Column() {
-                Header("Splash")
+            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                CircularProgressIndicator()
             }
         }
     }

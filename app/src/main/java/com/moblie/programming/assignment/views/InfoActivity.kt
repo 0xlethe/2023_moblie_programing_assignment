@@ -3,6 +3,7 @@ package com.moblie.programming.assignment.views
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
@@ -21,10 +22,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.moblie.programming.assignment.manager.CertificateManager
 import com.moblie.programming.assignment.type.Certificate
 import com.moblie.programming.assignment.type.Common
 import com.moblie.programming.assignment.ui.component.Header
 import com.moblie.programming.assignment.ui.theme.AssignmentTheme
+import androidx.compose.runtime.livedata.observeAsState
 
 class InfoActivity : ComponentActivity() {
     lateinit var certificate: Certificate
@@ -39,19 +42,6 @@ class InfoActivity : ComponentActivity() {
                 ) {
                     DefaultPreview()
                 }
-            }
-        }
-    }
-
-    @Composable
-    fun MainHeader() {
-        Surface(
-            color = Color.DarkGray,
-            modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp)
-        ) {
-            Column() {
-                Header(certificate.name, color = Color.White)
             }
         }
     }
@@ -139,13 +129,28 @@ class InfoActivity : ComponentActivity() {
         }
     }
 
+    fun getBookMarkString(isFav: Boolean): String {
+        return if (isFav) "★" else "☆"
+    }
+
     @Preview(showBackground = true, widthDp = 320, heightDp = 480)
     @Composable
     fun DefaultPreview() {
+        var (isFav, setFav) = remember { mutableStateOf(getBookMarkString(certificate.isFav)) }
         Column() {
-            MainHeader()
+            Surface(
+                color = Color.DarkGray,
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(0.dp, 0.dp, 16.dp, 16.dp)
+            ) {
+                Column() {
+                    Header(certificate.name, color = Color.White, { setFav(getBookMarkString(CertificateManager.updateFav(certificate))) }, isFav)
+                }
+            }
             Column(
-                modifier = Modifier.weight(1f).verticalScroll(state = ScrollState(0), enabled = true)
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(state = ScrollState(0), enabled = true)
             ) {
                 InfoImage()
                 InfoBox("organization", certificate.organization)
