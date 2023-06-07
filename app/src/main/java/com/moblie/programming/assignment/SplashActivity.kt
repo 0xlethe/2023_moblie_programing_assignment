@@ -44,8 +44,9 @@ import kotlin.concurrent.timer
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val db = DBHelper(this)
         ApiClient.getList()
+
+        val db = DBHelper(this)
 
         timer(initialDelay = 1000, period = 1000) {
             if (CertificateManager.data.isNotEmpty()) {
@@ -58,7 +59,6 @@ class SplashActivity : ComponentActivity() {
                 }
 
                 cancel()
-                Toast.makeText(applicationContext, "데이터 업데이트 완료", Toast.LENGTH_SHORT).show()
                 startActivity(
                     Intent(applicationContext, MainActivity::class.java)
                         .setFlags(FLAG_ACTIVITY_CLEAR_TOP)
